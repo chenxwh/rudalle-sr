@@ -35,11 +35,11 @@ class Predictor(cog.Predictor):
     )
     def predict(self, image, scale):
         realesrgan = self.models[scale]
-        input_image = Image.open(str(image))
+        input_image = Image.open(str(image))     
+        input_image = input_image.convert('RGB')
         with torch.no_grad():
             print("Up-scaling!")
             sr_image = realesrgan.predict(np.array(input_image))
         out_path = Path(tempfile.mkdtemp()) / "out.png"
         sr_image.save(str(out_path))
-        sr_image.save("000.png")
         return out_path
