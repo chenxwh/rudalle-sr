@@ -1,0 +1,15 @@
+build:
+  gpu: true
+  python_version: "3.8"
+  system_packages:
+    - "libgl1-mesa-glx"
+    - "libglib2.0-0"
+  python_packages:
+    - "torch==1.7.1"
+    - "torchvision==0.8.2"
+    - "rudalle==0.0.1rc2"
+    - "ipython==7.19.0"
+  run:
+    - git clone https://github.com/sberbank-ai/ru-dalle.git
+
+predict: "predict.py:Predictor"
