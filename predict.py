@@ -9,7 +9,6 @@ import cog
 sys.path.append("ru-dalle")
 from rudalle.realesrgan.model import RealESRGAN
 
-
 class Predictor(cog.Predictor):
     def setup(self):
         device = torch.device("cuda:0")
@@ -21,19 +20,11 @@ class Predictor(cog.Predictor):
             self.MODELS[scale] = model
         print("Model loaded!")
 
-    @cog.input(
-        "image",
-        type=Path,
-        help="input image",
-    )
-    @cog.input(
-        "scale",
-        type=int,
-        default=4,
-        options=[2, 4, 8],
-        help="choose up-scaling factor",
-    )
-    def predict(self, image, scale):
+    def predict(
+        self,
+        image: Path = cog.Input(description="Input image", type=Path),
+        scale: int = cog.Input(description="Choose up-scaling factor", default=4, options=[2, 4, 8]),
+    ) -> Path:
         realesrgan = self.models[scale]
         input_image = Image.open(str(image))     
         input_image = input_image.convert('RGB')
