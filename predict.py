@@ -17,7 +17,7 @@ class Predictor(BasePredictor):
         for scale in scales:
             model = RealESRGAN(device, scale)
             model.load_weights(f"models/RealESRGAN_x{scale}.pth")
-            self.MODELS[scale] = model
+            self.models[scale] = model
         print("Model loaded!")
 
     def predict(
